@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
+
 
 
 /*
@@ -15,23 +19,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::fallback(function(){
-//     return redirect('/404');
-// })->name('404');
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::fallback(function(){
-    return view('404');
-})->name('404');
+// Route::fallback(function(){
+//     return view('404');
+// })->name('404');
 
 
 
-Auth::routes();
+Auth::routes(['verify'=>true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('home');
 
 // Route::get('index',function(){
 //     return view('index');
@@ -98,13 +100,60 @@ Route::get('contact',[PageController::class,'contact'])->name('contact');
 
 Route::get('facility',[PageController::class,'facility'])->name('facility');
 
-Route::get('testimonial',[PageController::class,'testimonial'])->name('testimonial');
+// Route::get('testimonial',[PageController::class,'testimonial'])->name('testimonial');
 
 Route::get('team',[PageController::class,'team'])->name('team');
 
-Route::get('pages',function(){
-        return view('pages');
-    })->name('pages');
+//testimonial routes
+
+Route::get('testimonial',[TestimonialController::class,'testimonial'])->middleware('verified')->name('testimonial');
+
+Route::get('testimonialTable',[TestimonialController::class,'index'])->middleware('verified')->name('testimonialTable');
+
+Route::get('addTestimonial',[TestimonialController::class,'create'])->name('addTestimonial');
+
+Route::post('storeTestimonial',[TestimonialController::class,'store'])->name('storeTestimonial');
+
+Route::get('editTestimonial/{id}',[TestimonialController::class,'edit'])->name('editTestimonial');
+
+Route::put('updateTestimonial/{id}',[TestimonialController::class,'update'])->name('updateTestimonial');
+
+Route::get('showTestimonial/{id}',[TestimonialController::class,'show'])->name('showTestimonial');
+
+Route::get('deleteTestimonial/{id}',[TestimonialController::class,'destroy'])->name('deleteTestimonial');
+
+Route::get('trashedTestimonial',[TestimonialController::class,'trashed'])->name('trashedTestimonial');
+
+Route::get('forceDeleteTestimonial/{id}',[TestimonialController::class,'forceDelete'])->name('forceDeleteTestimonial');
+
+Route::get('restoreTestimonial/{id}',[TestimonialController::class,'restore'])->name('restoreTestimonial');
+
+
+//appointment routes
+
+Route::get('appointmentTable',[AppointmentController::class,'index'])->middleware('verified')->name('appointmentTable');
+
+Route::get('addAppointment',[AppointmentController::class,'create'])->name('addAppointment');
+
+Route::post('storeAppointment',[AppointmentController::class,'store'])->name('storeAppointment');
+
+Route::get('showAppointment/{id}',[AppointmentController::class,'show'])->name('showAppointment');
+
+Route::get('deleteAppointment/{id}',[AppointmentController::class,'destroy'])->name('deleteAppointment');
+
+
+//contact routes
+
+Route::get('contactTable',[ContactController::class,'index'])->middleware('verified')->name('contactTable');
+
+Route::get('addContact',[ContactController::class,'create'])->name('addContact');
+
+Route::post('storeContact',[ContactController::class,'store'])->name('storeContact');
+
+Route::get('showContact/{id}',[ContactController::class,'show'])->name('showContact');
+
+Route::get('deleteContact/{id}',[ContactController::class,'destroy'])->name('deleteContact');
+
 
 
 

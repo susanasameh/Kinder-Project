@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Testimonial;
 
 class PageController extends Controller
 {
@@ -12,7 +13,8 @@ class PageController extends Controller
     }
 
     public function index(){
-        return view('index');
+        $testimonial = Testimonial::where('published', true)->latest()->take(3)->get();
+        return view('index',compact('testimonial'));
     }
 
 
@@ -46,15 +48,19 @@ class PageController extends Controller
 
     }
 
-    public function testimonial(){
-        return view('testimonial');
+    // public function testimonial(){
 
-    }
+    //     $testimonial = Testimonial::get();
+    //     return view('testimonial',compact('testimonial'));
+
+    // }
 
     public function callToAction(){
         return view('call-to-action');
 
     }
+
+
 
 
 }
