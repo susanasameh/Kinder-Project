@@ -4,6 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Testimonial;
+use App\Models\Appointment;
+use App\Models\Contact;
+use App\Models\Teacher;
+use App\Models\ClassRoom;
+
+
+
 
 class PageController extends Controller
 {
@@ -14,26 +21,36 @@ class PageController extends Controller
 
     public function index(){
         $testimonial = Testimonial::where('published', true)->latest()->take(3)->get();
-        return view('index',compact('testimonial'));
+        $appointment = Appointment::get();
+        $teacher = Teacher::where('published', true)->latest()->take(3)->get();
+        $classRoom = ClassRoom::where('published', 1)->orderBy('id', 'desc')->take(9)->get();
+        return view('index',compact('testimonial','teacher' , 'classRoom'));
     }
 
 
 
     public function about(){
-        return view('about');
+        $teacher = Teacher::where('published', 1)->orderBy('id', 'desc')->take(3)->get();
+        return view("about", compact('teacher'));
     }
 
     public function appointment(){
+        $appointment = Appointment::get();
         return view('appointment');
     }
 
     public function contact(){
+        $contact = Contact::get();
         return view('contact');
 
     }
 
     public function classes(){
-        return view('classes');
+        $testimonial = Testimonial::get();
+        $teacher = Teacher::get();
+        $classRoom = ClassRoom::where('published', 1)->orderBy('id', 'desc')->get();
+        return view("classes", compact('testimonial', 'classRoom'));
+
 
     }
 
@@ -44,7 +61,9 @@ class PageController extends Controller
 
 
  public function team(){
-        return view('team');
+
+        $teacher = Teacher::get();
+        return view('team',compact('teacher'));
 
     }
 

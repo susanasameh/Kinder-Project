@@ -25,7 +25,7 @@
         <th>updated_at</th>
         <th>show</th>
         <th>Delete</th>
-        
+
       </tr>
     </thead>
     <tbody>
@@ -74,4 +74,5 @@
 </div>
 
 </body>
+{{ $contact->links()}}
 </html>

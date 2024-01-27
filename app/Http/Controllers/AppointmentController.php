@@ -16,11 +16,13 @@ class AppointmentController extends Controller
 
     public function create(){
 
-        return view('admin.appointment.addAppointment');
+        // return view('admin.appointment.addAppointment');
+        // return view('appointment');
+
     }
 
 
- public function store(Request $request){
+ public function storeAppointment(Request $request){
 
     $messages= [
         'guardianName'=>'please enter your the guardian name',
@@ -41,7 +43,7 @@ class AppointmentController extends Controller
     ],$messages);
 
        Appointment::create($data);
-        return redirect('appointmentTable');
+        return redirect('admin/appointment');
     }
 
     public function show(string $id)
@@ -53,7 +55,7 @@ class AppointmentController extends Controller
     public function destroy(string $id)
     {
         Appointment::where('id',$id)->delete();
-        return redirect('appointmentTable');
+        return redirect('admin/appointmentTable');
     }
 
 

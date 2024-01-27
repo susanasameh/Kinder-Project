@@ -65,7 +65,7 @@
 
             ">Restore</a></td>
         {{-- <td><a href="deleteCar/{{ $data->id }}">Delete</a></td> --}}
-        <td><a href="deleteTestimonial/{{ $data->id }}" onclick="return confirm('Are you sure you want to delete?')" style="
+        <td><a href="forceDeleteTestimonial/{{ $data->id }}" onclick="return confirm('Are you sure you want to delete?')" style="
             background-color: rgb(237, 8, 8);
               color: rgb(255, 254, 254);
               padding: 14px 25px;

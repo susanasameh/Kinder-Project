@@ -98,4 +98,5 @@
 </div>
 
 </body>
+{{ $testimonial->links() }}
 </html>

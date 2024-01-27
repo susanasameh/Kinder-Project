@@ -24,7 +24,8 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        $testimonial = Testimonial::get();
+        // $testimonial = Testimonial::get();
+        $testimonial = Testimonial::paginate(2);
         return view('admin/testimonial/testimonialTable',compact('testimonial'));
     }
 
@@ -53,7 +54,7 @@ class TestimonialController extends Controller
         $data['image'] = $fileName;
         $data['published']=isset($request->published);
         Testimonial::create($data);
-        return redirect('testimonialTable');
+        return redirect('admin/testimonialTable');
     }
 
     /**
@@ -97,7 +98,7 @@ class TestimonialController extends Controller
 
         $data['published']=isset($request->published);
         Testimonial::where('id',$id)->update($data);
-        return redirect('testimonialTable');
+        return redirect('admin/testimonialTable');
     }
 
     /**
@@ -106,7 +107,7 @@ class TestimonialController extends Controller
     public function destroy(string $id)
     {
         Testimonial::where('id',$id)->delete();
-        return redirect('testimonialTable');
+        return redirect('admin/testimonialTable');
     }
 
     public function trashed()
@@ -119,13 +120,13 @@ class TestimonialController extends Controller
     public function forceDelete(string $id)
     {
         Testimonial::where('id',$id)->forceDelete();
-        return redirect('testimonialTable');
+        return redirect('admin/testimonialTable');
     }
 
     public function restore(string $id)
     {
         Testimonial::where('id',$id)->restore();
-        return redirect('testimonialTable');
+        return redirect('admin/testimonialTable');
     }
 
     public function messages(){
